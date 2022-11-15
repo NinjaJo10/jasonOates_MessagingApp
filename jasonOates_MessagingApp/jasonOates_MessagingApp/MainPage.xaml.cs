@@ -14,5 +14,10 @@ namespace jasonOates_MessagingApp
         {
             InitializeComponent();
         }
+
+        private void sendMsgButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -1,24 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="jasonOates_MessagingApp.MainPage">
+             x:Class="jasonOates_MessagingApp.MainPage"
+             x:Name="messageMainPage"
+             BackgroundColor="White">
 
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
+    <StackLayout x:Name="backgroundStack" 
+                 BackgroundColor="PaleGreen" Padding="15,40,15,0">
+        <Label x:Name="TitleLabel"
+                   Text="Messaging App" 
+                   FontSize="Title" TextColor="Black"
+                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="45"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackLayout x:Name="displayMessageStack"
+                         Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                <ContentView x:Name="displayMessageContentView" HorizontalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100*"/>
+                        </Grid.RowDefinitions>
+                        <Editor x:Name="displayMessageEditor"
+                                FontSize="Medium" TextColor="Black"
+                                Grid.Row="0" Margin="15, 20, 15, 10"
+                                BackgroundColor="#7F808080" 
+                                IsReadOnly="True"
+                                HeightRequest="500"/>
+                    </Grid>
+                </ContentView>
+            </StackLayout>
+
+            <Entry x:Name="messageInput"
+                   FontSize="Default" TextColor="Black"
+                   HorizontalTextAlignment="Start" VerticalTextAlignment="Start"
+                   Grid.Row="1" Grid.Column="0"/>
+            <Button x:Name="sendMsgButton"
+                    FontSize="Medium" TextColor="Black"
+                    Text="✉"
+                    Clicked="sendMsgButton_Clicked"
+                    Grid.Row="1" Grid.Column="1"/>
+        </Grid>
     </StackLayout>
-
 </ContentPage>
