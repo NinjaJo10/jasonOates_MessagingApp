@@ -39,6 +39,7 @@
             </StackLayout>
 
             <Entry x:Name="messageInput"
+                   BackgroundColor="white"
                    FontSize="Default" TextColor="Black"
                    HorizontalTextAlignment="Start" VerticalTextAlignment="Start"
                    Grid.Row="1" Grid.Column="0"/>

@@ -18,10 +18,7 @@ namespace jasonOates_MessagingApp
         public MainPage()
         {
             InitializeComponent();
-            if (DatabaseHandler.dbClient == null)
-            {
-                DatabaseHandler.dbSetup();
-            }
+            DatabaseHandler.dbSetup();
         }
 
         private void sendMsgButton_Clicked(object sender, EventArgs e)
