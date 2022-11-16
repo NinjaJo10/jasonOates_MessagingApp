@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Collections.ObjectModel;
 
 namespace jasonOates_MessagingApp
 {
@@ -75,17 +76,22 @@ namespace jasonOates_MessagingApp
                 var messagesDocument = msg_collection.Find(filter).FirstOrDefault();
                 Debug.WriteLine(messagesDocument);
                 var messsagesDict = messagesDocument.ToDictionary();
-                var msgArray = (Object[])(messsagesDict["MessagesArray"]);
+                var msgArray = (object[])(messsagesDict["MessagesArray"]);
                 Debug.WriteLine(msgArray);
-
+                BsonArray tempBArray = new BsonArray();
                 msgArray = addFromListToArray();
                 try
                 {
                     foreach (var msg in msgArray)
                     {
                         Debug.WriteLine("From the array! " + msg.ToString());
+                        Debug.WriteLine(messagesDocument["MessagesArray"]);
+                        tempBArray.Add((BsonValue)msg);
                     }
-                    
+                    var messagesDocument2 = msg_collection.Find(filter).ToList();
+                    var modelUpdate = Builders<BsonDocument>.Update.Set("MessagesArray", tempBArray);
+                    msg_collection.UpdateOne(filter, modelUpdate);
+                    //Debug.WriteLine(messagesDocument);
                 }
                 catch (Exception e)
                 { Debug.WriteLine(e.ToString()); }
@@ -96,10 +102,10 @@ namespace jasonOates_MessagingApp
             }
         }
 
-        public static object[] addFromListToArray()
+        public static BsonDocument[] addFromListToArray()
         {
-            Object[] msgSending = new object[0];
-            List<object> tempMsgList = new List<object>();
+            BsonDocument[] msgSending = new BsonDocument[0];
+            List<BsonDocument> tempMsgList = new List<BsonDocument>();
             foreach (var clientMsg in msgsToSend)
             {
                 Debug.WriteLine(clientMsg);
