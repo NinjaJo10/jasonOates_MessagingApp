@@ -6,6 +6,7 @@ using MongoDB.Bson;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace jasonOates_MessagingApp
 {
@@ -76,21 +77,32 @@ namespace jasonOates_MessagingApp
                 var messagesDocument = msg_collection.Find(filter).FirstOrDefault();
                 Debug.WriteLine(messagesDocument);
                 var messsagesDict = messagesDocument.ToDictionary();
-                var msgArray = (object[])(messsagesDict["MessagesArray"]);
-                Debug.WriteLine(msgArray);
-                BsonArray tempBArray = new BsonArray();
-                msgArray = addFromListToArray();
+                var tempBArray = (object[])(messsagesDict["MessagesArray"]);
+                Debug.WriteLine(tempBArray);
+                BsonArray tempB = new BsonArray(tempBArray);
+                BsonArray msgArray = new BsonArray();
+                //foreach (var msg in msgArray)
+                //{
+                //    tempBArray.Add((BsonValue)msg);
+                //}
+                object[] newBArray = addFromListToArray();
                 try
                 {
-                    foreach (var msg in msgArray)
+                    foreach (var message in tempB)
+                    {
+                        Debug.WriteLine("From the array! " + message.ToString());
+                        msgArray.Add((BsonValue)message);
+                    }
+                    foreach (var msg in newBArray)
                     {
                         Debug.WriteLine("From the array! " + msg.ToString());
                         Debug.WriteLine(messagesDocument["MessagesArray"]);
-                        tempBArray.Add((BsonValue)msg);
+                        msgArray.Add((BsonValue)msg);
                     }
                     var messagesDocument2 = msg_collection.Find(filter).ToList();
-                    var modelUpdate = Builders<BsonDocument>.Update.Set("MessagesArray", tempBArray);
+                    var modelUpdate = Builders<BsonDocument>.Update.Set("MessagesArray", msgArray);
                     msg_collection.UpdateOne(filter, modelUpdate);
+                    msgsToSend.Clear();
                     //Debug.WriteLine(messagesDocument);
                 }
                 catch (Exception e)
