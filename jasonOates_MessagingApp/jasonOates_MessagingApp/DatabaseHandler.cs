@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace jasonOates_MessagingApp
 {
@@ -17,8 +18,7 @@ namespace jasonOates_MessagingApp
         public static IMongoCollection<BsonDocument> msg_collection;
 
         public static List<BsonDocument> msgsToSend = new List<BsonDocument>();
-        public static List<object> msgsReceived = new List<object>();
-        public static object[] msgsReceived2 = new object[0];
+        public static List<MsgClass> msgsReceived = new List<MsgClass>();
 
         public static void dbSetup()
         {
@@ -173,35 +173,21 @@ namespace jasonOates_MessagingApp
                 foreach (var message in messagesDocument)
                 {
                     var msgDict = message.ToDictionary();
-                    foreach (var keys in msgDict.Keys)
+                    var mobjArray = (Object[])(msgDict["MessagesArray"]);
+                    foreach (Object mObj in mobjArray)
                     {
-                        if (keys == "MessagesArray")
-                        {
-                            foreach (var item in (object[])msgDict[keys])
-                            {
-                                msgsReceived.Add(item);
-                            }
-                            //msgsReceived = (List<object>)msgDict[keys];
-                        }
+                        var deviceDictionary = (Dictionary<String, Object>)mObj;
+                        
+                        Debug.WriteLine(deviceDictionary["User"]);
+                        string user = deviceDictionary["User"].ToString();
+                        string Message = deviceDictionary["Message"].ToString();
+                        DateTime time = (DateTime)deviceDictionary["Time Sent"]; // need to get this to work but it receives the Message and User properly
+
+                        MsgClass msg = new MsgClass(user, Message);
+                        msgsReceived.Add(msg);
                     }
                 }
                 Debug.WriteLine(msgsReceived);
-                foreach (var msg in msgsReceived)
-                {
-                    foreach(var item in (object[])msg) // this doesn't work yet... can't cast Dict[string, obj] to Object[]
-                    {
-                        Debug.WriteLine(item);
-                    }
-                    Debug.WriteLine(msg);
-                }
-                //var messsagesDict = messagesDocument.ToDictionary();
-                //var tempBArray = (object[])(messsagesDict["MessagesArray"]);
-                //Debug.WriteLine(tempBArray);
-                //foreach (var msg in tempBArray)
-                //{
-                //    msgsReceived.Add(msg);
-                //}
-                //Debug.WriteLine(msgsReceived);
                 //displayMsg();
             }
         }
