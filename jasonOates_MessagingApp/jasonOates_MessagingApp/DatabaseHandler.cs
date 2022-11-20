@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace jasonOates_MajorProject_GroupChatApp
+namespace jasonOates_MessagingApp
 {
     public class DatabaseHandler
     {

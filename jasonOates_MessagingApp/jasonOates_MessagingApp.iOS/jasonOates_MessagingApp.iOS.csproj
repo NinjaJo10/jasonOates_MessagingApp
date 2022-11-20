@@ -131,9 +131,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\jasonOates_MajorProject_GroupChatApp\jasonOates_MajorProject_GroupChatApp.csproj">
-      <Project>{6941c0e0-6471-461b-b555-cc73e454284b}</Project>
-      <Name>jasonOates_MajorProject_GroupChatApp</Name>
+    <ProjectReference Include="..\jasonOates_MessagingApp\jasonOates_MessagingApp.csproj">
+      <Project>{1C1A81C6-6087-49ED-B906-184C31FE71FF}</Project>
+      <Name>jasonOates_MessagingApp</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

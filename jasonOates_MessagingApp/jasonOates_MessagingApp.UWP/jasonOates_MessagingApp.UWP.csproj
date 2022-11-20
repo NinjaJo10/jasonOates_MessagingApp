@@ -7,8 +7,8 @@
     <ProjectGuid>{24C3806A-5575-49E9-A90E-FBADC86E7AA8}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>jasonOates_MajorProject_GroupChatApp.UWP</RootNamespace>
-    <AssemblyName>jasonOates_MajorProject_GroupChatApp.UWP</AssemblyName>
+    <RootNamespace>jasonOates_MessagingApp.UWP</RootNamespace>
+    <AssemblyName>jasonOates_MessagingApp.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
@@ -152,9 +152,9 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\jasonOates_MajorProject_GroupChatApp\jasonOates_MajorProject_GroupChatApp.csproj">
-      <Project>{6941c0e0-6471-461b-b555-cc73e454284b}</Project>
-      <Name>jasonOates_MajorProject_GroupChatApp</Name>
+    <ProjectReference Include="..\jasonOates_MessagingApp\jasonOates_MessagingApp.csproj">
+      <Project>{1C1A81C6-6087-49ED-B906-184C31FE71FF}</Project>
+      <Name>jasonOates_MessagingApp</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

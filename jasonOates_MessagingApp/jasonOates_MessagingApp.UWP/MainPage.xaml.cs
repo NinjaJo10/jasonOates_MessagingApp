@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace jasonOates_MajorProject_GroupChatApp.UWP
+namespace jasonOates_MessagingApp.UWP
 {
     public sealed partial class MainPage
     {
@@ -21,7 +21,7 @@ namespace jasonOates_MajorProject_GroupChatApp.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new jasonOates_MajorProject_GroupChatApp.App());
+            LoadApplication(new jasonOates_MessagingApp.App());
         }
     }
 }

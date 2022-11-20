@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace jasonOates_MajorProject_GroupChatApp
+namespace jasonOates_MessagingApp
 {
     public partial class App : Application
     {

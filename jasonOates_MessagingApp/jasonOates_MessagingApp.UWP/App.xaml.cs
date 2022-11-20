@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace jasonOates_MajorProject_GroupChatApp.UWP
+namespace jasonOates_MessagingApp.UWP
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
