@@ -49,5 +49,16 @@
                     Clicked="sendMsgButton_Clicked"
                     Grid.Row="1" Grid.Column="1"/>
         </Grid>
+        <Label Text="User override: "
+               TextColor="Black"
+               FontSize="Body"/>
+        <Entry x:Name="userOverride"
+               TextColor="Black" BackgroundColor="Wheat"
+               FontSize="Body"/>
+        <Button x:Name="overrideButton"
+                Text="Override"
+                BackgroundColor="WhiteSmoke"
+                TextColor="Black"
+                Clicked="overrideButton_Clicked"/>
     </StackLayout>
 </ContentPage>

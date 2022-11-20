@@ -9,13 +9,14 @@ namespace jasonOates_MessagingApp
     {
         public string user;
         public string message;
-        public string sentTime;
+        public DateTime sentTime;
 
-        public MsgClass(string user, string message)
+
+        public MsgClass(string user, string message, DateTime sentTime)
         {
             this.user = user;
             this.message = message;
-            this.sentTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy");
+            this.sentTime = sentTime;
         }
     }
 }

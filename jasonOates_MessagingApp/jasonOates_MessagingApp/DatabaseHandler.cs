@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace jasonOates_MessagingApp
 {
@@ -17,6 +18,9 @@ namespace jasonOates_MessagingApp
         public static IMongoCollection<BsonDocument> msg_collection;
 
         public static List<BsonDocument> msgsToSend = new List<BsonDocument>();
+        public static List<MsgClass> msgsReceived = new List<MsgClass>();
+        public static List<MsgClass> displayMsgList = new List<MsgClass>();
+
         public static void dbSetup()
         {
             dbClient = new MongoClient("mongodb://localhost:27017");
@@ -24,27 +28,37 @@ namespace jasonOates_MessagingApp
             msg_collection = messageDatabase.GetCollection<BsonDocument>("MessagingAppDB");
             if (msg_collection != null)
             {
-                if (checkDB())
-                {
-                    var messagesDoc = new BsonDocument {
-                    { "MessagesArray", new BsonArray { } }
-                };
-                    msg_collection.InsertOne(messagesDoc);
-                    Debug.WriteLine("I have added the blank Bson Document");
-                }
-                else
-                {
-                    Debug.WriteLine("The Bson Document is already there");
-                }
+                checkDB();
+                getMsgsFromDB();
             }
         }
 
-        public static void msgToBson(MsgClass message)
+        public static bool tryReconnectToDB()
+        {
+            if (msg_collection == null)
+            {
+                try
+                {
+                    dbClient = new MongoClient("mongodb://localhost:27017");
+                    messageDatabase = dbClient.GetDatabase("local");
+                    msg_collection = messageDatabase.GetCollection<BsonDocument>("MessagingAppDB");
+                    checkDB();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.ToString());
+                }
+            }
+            return false;
+        }
+
+        public static void msgToBsonList(MsgClass message)
         {
             var msgDocument = new BsonDocument {
                     { "User", message.user },
                     { "Message", message.message },
-                    { "Time Sent", message.sentTime },
+                    { "Time Sent", new BsonDateTime(message.sentTime) },
                 };
 
             //var allMsgsDocument = msg_collection;
@@ -55,15 +69,22 @@ namespace jasonOates_MessagingApp
         }
 
         // check if blank BsonDocument is there if not return true, else false
-        public static bool checkDB()
+        public static void checkDB()
         {
             var filter = Builders<BsonDocument>.Filter.Exists("MessagesArray");
             var messagesInDB = msg_collection.Find(filter).FirstOrDefault();
             if (messagesInDB == null)
             {
-                return true;
+                var messagesDoc = new BsonDocument {
+                    { "MessagesArray", new BsonArray { } }
+                };
+                msg_collection.InsertOne(messagesDoc);
+                Debug.WriteLine("I have added the blank Bson Document");
             }
-            return false;
+            else
+            {
+                Debug.WriteLine("The Bson Document is already there");
+            }
         }
 
         public static void sendMsg()
@@ -76,8 +97,8 @@ namespace jasonOates_MessagingApp
                 var filter = Builders<BsonDocument>.Filter.Exists("MessagesArray");
                 var messagesDocument = msg_collection.Find(filter).FirstOrDefault();
                 Debug.WriteLine(messagesDocument);
-                var messsagesDict = messagesDocument.ToDictionary();
-                var tempBArray = (object[])(messsagesDict["MessagesArray"]);
+                var messagesDict = messagesDocument.ToDictionary();
+                var tempBArray = (object[])(messagesDict["MessagesArray"]);
                 Debug.WriteLine(tempBArray);
                 BsonArray tempB = new BsonArray(tempBArray);
                 BsonArray msgArray = new BsonArray();
@@ -137,6 +158,55 @@ namespace jasonOates_MessagingApp
         /// ---> document "messages"
         ///             |
         ///             |
-        ///             ---> bson array of all messages
+        ///             ---> bson array of all messages          
+
+        public static void getMsgsFromDB()
+        {
+            if (msg_collection != null)
+            {
+                Debug.WriteLine("Theoretical DB is Connected");
+
+                msgsReceived.Clear();
+                var filter = Builders<BsonDocument>.Filter.Exists("MessagesArray");
+                //var filter = Builders<BsonDocument>.Filter.Eq("MessagesArray", "Array");
+                var sort = Builders<BsonDocument>.Sort.Descending("Time Sent");
+                var messagesDocument = msg_collection.Find(filter).Sort(sort).ToList();
+                Debug.WriteLine(messagesDocument);
+                foreach (var message in messagesDocument)
+                {
+                    var msgDict = message.ToDictionary();
+                    var mobjArray = (Object[])(msgDict["MessagesArray"]);
+                    foreach (Object mObj in mobjArray)
+                    {
+                        var deviceDictionary = (Dictionary<String, Object>)mObj;
+                        
+                        Debug.WriteLine(deviceDictionary["User"]);
+                        string user = deviceDictionary["User"].ToString();
+                        string Message = deviceDictionary["Message"].ToString();
+                        DateTime time = (DateTime)deviceDictionary["Time Sent"]; // need to get this to work but it receives the Message and User properly
+
+                        MsgClass msg = new MsgClass(user, Message, time);
+                        msgsReceived.Add(msg);
+                    }
+                }
+                Debug.WriteLine(msgsReceived);
+                displayMsg();
+            }
+        }
+
+        public static void displayMsg()
+        {
+            MainPage.msgdisplay.Text = "";
+            // displayMessageEditor
+            // MainPage
+            // messageMainPage
+
+            // MainPage.msgdisplay
+            foreach (var msg in msgsReceived)
+            {
+                string tempMsg = msg.message + " was sent by " + msg.user + " at " + msg.sentTime + ".";
+                MainPage.msgdisplay.Text += tempMsg + "\n";
+            }
+        }
     }
 }
