@@ -19,6 +19,7 @@ namespace jasonOates_MessagingApp
 
         public static List<BsonDocument> msgsToSend = new List<BsonDocument>();
         public static List<MsgClass> msgsReceived = new List<MsgClass>();
+        public static List<MsgClass> displayMsgList = new List<MsgClass>();
 
         public static void dbSetup()
         {
@@ -28,6 +29,7 @@ namespace jasonOates_MessagingApp
             if (msg_collection != null)
             {
                 checkDB();
+                getMsgsFromDB();
             }
         }
 
@@ -183,20 +185,27 @@ namespace jasonOates_MessagingApp
                         string Message = deviceDictionary["Message"].ToString();
                         DateTime time = (DateTime)deviceDictionary["Time Sent"]; // need to get this to work but it receives the Message and User properly
 
-                        MsgClass msg = new MsgClass(user, Message);
+                        MsgClass msg = new MsgClass(user, Message, time);
                         msgsReceived.Add(msg);
                     }
                 }
                 Debug.WriteLine(msgsReceived);
-                //displayMsg();
+                displayMsg();
             }
         }
 
         public static void displayMsg()
         {
+            MainPage.msgdisplay.Text = "";
+            // displayMessageEditor
+            // MainPage
+            // messageMainPage
+
+            // MainPage.msgdisplay
             foreach (var msg in msgsReceived)
             {
-                Debug.WriteLine(msg);
+                string tempMsg = msg.message + " was sent by " + msg.user + " at " + msg.sentTime + ".";
+                MainPage.msgdisplay.Text += tempMsg + "\n";
             }
         }
     }

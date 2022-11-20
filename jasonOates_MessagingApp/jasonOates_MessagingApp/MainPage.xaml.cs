@@ -15,10 +15,12 @@ namespace jasonOates_MessagingApp
     {
         string ThisUser = "Jason";
         bool continueRepeatingTask = true;
+        public static Editor msgdisplay;
 
         public MainPage()
         {
             InitializeComponent();
+            msgdisplay = displayMessageEditor;
             DatabaseHandler.dbSetup();
             sendRepeater();
             receiveRepeater();
@@ -71,13 +73,21 @@ namespace jasonOates_MessagingApp
         private void sendMsgButton_Clicked(object sender, EventArgs e)
         {
             string msgText = messageInput.Text.ToString();
-            MsgClass thisMsg = new MsgClass(ThisUser, msgText);
+            MsgClass thisMsg = new MsgClass(ThisUser, msgText, DateTime.Now);
 
             Debug.WriteLine(thisMsg.user + " " + thisMsg.message + " " + thisMsg.sentTime);
             DatabaseHandler.msgToBsonList(thisMsg);
             messageInput.Text = "";
 
             DatabaseHandler.sendMsg();
+            DatabaseHandler.getMsgsFromDB();
+        }
+
+        private void overrideButton_Clicked(object sender, EventArgs e)
+        {
+            Debug.WriteLine("user was " + ThisUser);
+            ThisUser = userOverride.Text;
+            Debug.WriteLine("now im " + ThisUser);
         }
     }
 }

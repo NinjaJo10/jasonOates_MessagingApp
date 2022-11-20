@@ -11,11 +11,12 @@ namespace jasonOates_MessagingApp
         public string message;
         public DateTime sentTime;
 
-        public MsgClass(string user, string message)
+
+        public MsgClass(string user, string message, DateTime sentTime)
         {
             this.user = user;
             this.message = message;
-            this.sentTime = DateTime.Now;
+            this.sentTime = sentTime;
         }
     }
 }

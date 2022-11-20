@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jasonOates_MessagingApp.And
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jasonOates_MessagingApp.iOS", "jasonOates_MessagingApp\jasonOates_MessagingApp.iOS\jasonOates_MessagingApp.iOS.csproj", "{CB8C4637-189A-41DB-81D8-86F6525A72C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jasonOates_MessagingApp", "jasonOates_MessagingApp\jasonOates_MessagingApp\jasonOates_MessagingApp.csproj", "{8CF08347-21CC-4392-AD9E-3175196BAA1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jasonOates_MessagingApp", "jasonOates_MessagingApp\jasonOates_MessagingApp\jasonOates_MessagingApp.csproj", "{8CF08347-21CC-4392-AD9E-3175196BAA1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,7 +65,6 @@ Global
 		{24C3806A-5575-49E9-A90E-FBADC86E7AA8}.Release|x86.Deploy.0 = Release|x86
 		{ABA0F9E5-9F88-4340-88A5-6698B8AE4982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ABA0F9E5-9F88-4340-88A5-6698B8AE4982}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABA0F9E5-9F88-4340-88A5-6698B8AE4982}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{ABA0F9E5-9F88-4340-88A5-6698B8AE4982}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{ABA0F9E5-9F88-4340-88A5-6698B8AE4982}.Debug|ARM.Build.0 = Debug|Any CPU
 		{ABA0F9E5-9F88-4340-88A5-6698B8AE4982}.Debug|ARM.Deploy.0 = Debug|Any CPU
