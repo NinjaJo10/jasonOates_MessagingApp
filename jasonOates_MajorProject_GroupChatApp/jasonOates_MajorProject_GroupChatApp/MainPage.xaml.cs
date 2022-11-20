@@ -9,7 +9,7 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Diagnostics;
 
-namespace jasonOates_MessagingApp
+namespace jasonOates_MajorProject_GroupChatApp
 {
     public partial class MainPage : ContentPage
     {

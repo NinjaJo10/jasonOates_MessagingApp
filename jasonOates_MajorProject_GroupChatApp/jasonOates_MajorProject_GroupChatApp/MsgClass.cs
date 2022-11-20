@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 
-namespace jasonOates_MessagingApp
+namespace jasonOates_MajorProject_GroupChatApp
 {
     public class MsgClass
     {
